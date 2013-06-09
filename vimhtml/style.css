@@ -1,0 +1,53 @@
+body {
+	margin: 0;
+	background-color: #333;
+	color: #AAA;
+	font-family: 'Ubuntu Mono', sans-serif;
+	font-size: 16px;
+}
+
+p {
+	margin: 0;
+}
+#tabmenu {
+	margin: 0;
+	padding: 0;
+	overflow: auto;
+	background: #555;
+}
+
+#tabmenu a {
+	background-color: #444;
+	display: block;
+	float:left;
+	padding: 0 10px 0 10px;
+	color: #FFF;
+	text-decoration: none;
+}
+
+#tabmenu a:hover {
+	background-color: #666;
+}
+
+#tabmenu a.selected {
+	background-color: #333;
+}
+
+#buffer:focus {
+	outline: 0px;
+}
+
+#footer {
+	position: absolute;
+	overflow: auto;
+	bottom: 0px;
+	width: 100%;
+}
+
+#footer .left {
+	float: left;
+}
+
+#footer .right {
+	float: right;
+}
