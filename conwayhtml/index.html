@@ -6,14 +6,24 @@
 				border: 1px solid black;
 			}
 		</style>
-		<script src="conway.js"></script>
+		<script src="Conway.js"></script>
+		<script src="ConwayPlayer.js"></script>
+        <script>
+            window.onload = function() {
+                var impl1 = new Conway(1200,800);
+                ConwayPlayer.init(impl1,10);
+            };
+        </script>
 		</script>
 	</head>
 	<body>
 		<h1>Conway's Game of Life</h1>
-		<p>Primary click to draw. Secondary to erase. Middle button click to run/stop the animation.</p>
-		<canvas id="board" width=600 height=400>
+		<p>Primary click to draw. Secondary to erase.</p>
+		<canvas id="board" width=1200 height=800>
 		</canvas>
+        <a href="#" onclick="ConwayPlayer.run()">Run</a>
+        <a href="#" onclick="ConwayPlayer.stop()">Stop</a>
+        <a href="#" onclick="ConwayPlayer.step()">Step</a>
 		<div>fps:<span id="fps">--</span></div>
 	</body>
 </html>
