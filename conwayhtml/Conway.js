@@ -42,6 +42,7 @@ Conway.prototype = {
 				}
 			}
 		} 
+
 		for (i=0; i<this.width; i++) {
 			for (j=0; j<this.height; j++) {
 				var food = aux[this._flatPosition(i,j)]; 
