@@ -1,10 +1,11 @@
-var Conway = function(width, height) {
+var Conway = function(width, height, color, board) {
 
     var i,j;
 
     this.width = width;
     this.height = height;
     this._cells = [];
+    this.color = color;
 
 	for (i=0; i<width; i++) {
         this._cells[i] = [];
@@ -12,6 +13,8 @@ var Conway = function(width, height) {
             this._cells[i][j] = 0;
         }
     }
+
+    board.attach(this);
 };
 
 Conway.prototype = {
@@ -43,15 +46,18 @@ Conway.prototype = {
 			}
 		} 
 
+        var minFood = 2,
+            maxFood = 3;
+
 		for (i=0; i<this.width; i++) {
 			for (j=0; j<this.height; j++) {
 				var food = aux[this._flatPosition(i,j)]; 
 				if (this.isAlive(i,j)) {
-					if (food < 2 || food > 3) {
+					if (food < minFood || food > maxFood) {
 						this.markAsDead(i,j);
 					}
 				} else {
-					if (food == 3) {
+					if (food <= maxFood && food > minFood) {
 						this.markAsLive(i,j);
 					}
 				}
@@ -61,7 +67,7 @@ Conway.prototype = {
 
     markAsLive: function(i, j) {
         this._cells[i][j] = 1;
-        if (typeof(this.onBorn) == 'function') this.onBorn(i, j);
+        if (typeof(this.onBorn) == 'function') this.onBorn(i, j, this.color);
     },
 
     markAsDead: function(i, j) {

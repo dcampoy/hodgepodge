@@ -2,39 +2,44 @@ var ConwayCanvas = function(canvas, cellSize) {
     this._cellSize = cellSize;
 
     this._ctx = canvas.getContext("2d");
+
+    this._width = canvas.width / cellSize;
+    this._height = canvas.height / cellSize;
     this._ctx.fillStyle = "white";
     this._ctx.fillRect(0,0,this._width * this._cellSize, this._height * this._cellSize);
     this._interval = null;
+    this.ticks = 0;
+    this._impl = [];
+    this.lastLoop = null;
 
     this._assignEvents(canvas);
 };
 
 ConwayCanvas.prototype = {
 
-	ticks: 0,
+	attach: function(impl) {
+        this._impl.push(impl);
 
-    _impl: null,
-
-	lastLoop: null,
-
-	init: function(impl) {
-        this._impl = impl;
-        this._impl.onBorn = this._drawLiveCell.bind(this);
-        this._impl.onDie = this._drawDeadCell.bind(this);
-        this._width = impl.width;
-        this._height = impl.height;
+        impl.onBorn = this._drawLiveCell.bind(this);
+        impl.onDie = this._drawDeadCell.bind(this);
     },
 
 	markCellAsLive: function(x,y) {
-        this._impl.markAsLive(x,y);
+        for (i in this._impl) {
+            this._impl[i].markAsLive(x,y);
+        }
 	},
 
 	markCellAsDead: function(x,y) {
-        this._impl.markAsDead(x,y);
+        for (i in this._impl) {
+            this._impl[i].markAsDead(x,y);
+        }
 	},
 
 	step: function() {
-        this._impl.step();
+        for (i in this._impl) {
+            this._impl[i].step();
+        }
 	},
 
 	run: function(msec) {
@@ -87,9 +92,9 @@ ConwayCanvas.prototype = {
 		this.lastLoop = new Date;
 	},
 
-	_drawLiveCell: function(x,y) {
+	_drawLiveCell: function(x,y, color) {
         var size = this._cellSize;
-		this._ctx.fillStyle = "black";
+		this._ctx.fillStyle = color;
         this._ctx.fillRect(x * size, y * size, size, size);				
 	},
 

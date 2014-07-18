@@ -10,9 +10,9 @@
 		<script src="ConwayPlayer.js"></script>
         <script>
             window.onload = function() {
-                var impl1 = new Conway(80,40);
                 window.board = new ConwayCanvas(document.getElementById('board'), 10);
-                board.init(impl1, '#F00');
+                var impl1 = new Conway(80,40, "rgba(255,0,0,0.5)", board);
+                var impl2 = new Conway(80,40, "rgba(0,0,255,0.5)", board);
             };
         </script>
 		</script>
